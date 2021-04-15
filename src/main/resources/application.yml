@@ -1,0 +1,28 @@
+server:
+  port: 8082
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8876/eureka/
+    healthcheck:
+      enabled: true
+    lease:
+      duration: 5
+
+spring:
+  application:
+    name: todo-service
+    
+
+  
+management:
+  security:
+    enabled: false
+
+logging:
+  level:
+    com.example.howtodoinjava: DEBUG
