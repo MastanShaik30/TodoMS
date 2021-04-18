@@ -56,7 +56,7 @@ public class TodoController {
 		
 		Todo todoUpdated = todoService.updateTodo(id,todo);
 		
-		return new ResponseEntity<Todo>(todoUpdated, HttpStatus.OK);
+		return new ResponseEntity<Todo>(todoUpdated, HttpStatus.ACCEPTED);
 	}
 	
 	@PostMapping("/{username}/todos")
