@@ -1,6 +1,9 @@
 package com.todoms;
 
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -14,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -22,6 +24,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.todoms.controllers.TodoController;
 import com.todoms.model.Todo;
 import com.todoms.services.TodoService;
+
+
 
 
 @WebMvcTest(TodoController.class)
@@ -73,6 +77,22 @@ public class TodoWSControllerUnitTest {
 				.andExpect(jsonPath("$.username",is("Mastan")))
 				.andExpect(jsonPath("$.description", is("Testing Mockito")));
 				
+		
+	}
+	
+	
+	@Test
+	public void deleteTodobyIdwith204Status() throws Exception{
+		Long Id = (long)1;
+		String username = "Mastan";
+		
+		TodoService todoSpy = Mockito.spy(todoService);
+		Mockito.doNothing().when(todoSpy).deleteTodo(Id);
+		
+		mockMvc.perform(MockMvcRequestBuilders.delete("/todos/"+username+"/todos/"+Id).contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isNoContent());
+		verify(todoService,times(1)).deleteTodo(Id);
+		
 		
 	}
 	
