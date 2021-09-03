@@ -32,20 +32,20 @@ public class TodoController {
 	
 	@GetMapping("/{username}/todos")
 	public List<Todo> getAllTodos(@PathVariable String username){
-		log.debug("Getting to do's for User : "+username);
+		log.info("Getting to do's for User : "+username);
 		return todoService.getTodobyUsername(username);
 	}
 
 	@GetMapping("/{username}/todos/{id}")
 	public Todo getTodo(@PathVariable String username, @PathVariable long id){
-		log.debug("Getting to do's for User : "+username+ " and to do Id : "+id);
+		log.info("Getting to do's for User : "+username+ " and to do Id : "+id);
 		return todoService.getTodobyId(id);
 	}
 
 	@DeleteMapping("/{username}/todos/{id}")
 	public ResponseEntity<Void> deleteTodo(
 			@PathVariable String username, @PathVariable long id) {
-		log.debug("Deleting to do's for User : "+username+ " and to do Id : "+id);
+		log.info("Deleting to do's for User : "+username+ " and to do Id : "+id);
 		todoService.deleteTodo(id);
 
 		return ResponseEntity.noContent().build();
@@ -56,7 +56,7 @@ public class TodoController {
 	public ResponseEntity<Todo> updateTodo(
 			@PathVariable String username,
 			@PathVariable long id, @RequestBody Todo todo){
-		log.debug("Updating to do's for User : "+username+ " and to do Id : "+id);
+		log.info("Updating to do's for User : "+username+ " and to do Id : "+id);
 		todo.setUsername(username);
 		
 		Todo todoUpdated = todoService.updateTodo(id,todo);
@@ -67,7 +67,7 @@ public class TodoController {
 	@PostMapping("/{username}/todos")
 	public ResponseEntity<Void> createTodo(
 			@PathVariable String username, @RequestBody Todo todo){
-		log.debug("Creating to do's for User : "+username);
+		log.info("Creating to do's for User : "+username);
 		todo.setId(-1L);
 				
 		Todo createdTodo = todoService.createTodo(todo);
