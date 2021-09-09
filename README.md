@@ -13,6 +13,7 @@ Url : http://localhost:8082/register
 Request : {"username":"test","password":"test"}
 
 **Authenticate**
+
 Http Method: POST 
 Url : http://localhost:8082/authenticate
 Request : {"username":"test","password":"test"}
