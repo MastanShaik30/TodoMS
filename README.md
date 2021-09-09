@@ -19,5 +19,7 @@ Url : http://localhost:8082/authenticate
 Request : {"username":"test","password":"test"}
 
 
-Todo App API can be found in Swagger, Swagger is configured for JWT authentication
+**Todo App API**
+
+They can be found in Swagger. Swagger is configured for JWT authentication
 The Swagger Url is : http://localhost:8082/swagger-ui/
