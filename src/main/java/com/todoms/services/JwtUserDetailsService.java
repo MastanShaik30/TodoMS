@@ -3,6 +3,7 @@ package com.todoms.services;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.todoms.exceptions.UserAlreadyExistsException;
 import com.todoms.model.UserModel;
 import com.todoms.repository.UserRepo;
 
@@ -32,8 +34,12 @@ public class JwtUserDetailsService implements UserDetailsService {
 				new ArrayList<>());
 	}
 	
-	public UserModel save(UserModel user) {
+	public UserModel save(UserModel user) throws Exception{
 		UserModel newUser = new UserModel();
+		String username = user.getUsername();
+		if(!userRepo.findByUsername(username).getUsername().isEmpty()){
+			throw new UserAlreadyExistsException("Username Already Exists");
+		}
 		newUser.setUsername(user.getUsername());
 		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
 		return userRepo.save(newUser);

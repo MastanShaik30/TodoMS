@@ -31,5 +31,16 @@ public class TodoErrorHandler {
 				HttpStatus.NOT_FOUND);
 	}
 	
+	@ExceptionHandler(UserAlreadyExistsException.class)
+	public ResponseEntity<ErrorType> handleUserAlreadyExists(UserAlreadyExistsException uafe){
+		
+		return new ResponseEntity<ErrorType>(
+				new ErrorType(
+						new Date(System.currentTimeMillis()).toString(), 
+						"406- NOT ACCEPTABLE", 
+						uafe.getMessage()), 
+				HttpStatus.NOT_ACCEPTABLE);
+	}
+	
 	
 }

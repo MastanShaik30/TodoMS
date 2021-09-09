@@ -62,8 +62,6 @@ public class JwtAuthenticationController {
 			throw new Exception("USER_DISABLED", e);
 		} catch (BadCredentialsException e) {
 			throw new Exception("INVALID_CREDENTIALS", e);
-		} catch (DuplicateKeyException e) {
-			throw new Exception("Already User Exists",e);
 		}
 	}
 }
